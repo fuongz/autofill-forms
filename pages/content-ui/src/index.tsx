@@ -5,7 +5,7 @@ import App from '@src/app';
 import tailwindcssOutput from '@src/tailwind-output.css?inline';
 
 const root = document.createElement('div');
-root.id = 'chrome-extension-boilerplate-react-vite-content-view-root';
+root.id = 'chrome-extension-autofill-forms-content-view-root';
 
 document.body.append(root);
 
@@ -107,19 +107,4 @@ const globalStyleSheet = new CSSStyleSheet();
 globalStyleSheet.replaceSync(tailwindcssOutput);
 shadowRoot.adoptedStyleSheets = [globalStyleSheet];
 shadowRoot.appendChild(rootIntoShadow);
-/**
- * In the firefox environment, the adoptedStyleSheets bug may prevent style from being applied properly.
- *
- * @url https://bugzilla.mozilla.org/show_bug.cgi?id=1770592
- * @url https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/pull/174
- *
- * Please refer to the links above and try the following code if you encounter the issue.
- *
-
- * const styleElement = document.createElement('style');
- * styleElement.innerHTML = tailwindcssOutput;
- * shadowRoot.appendChild(styleElement);
- * ```
- */
-
 createRoot(rootIntoShadow).render(<App />);

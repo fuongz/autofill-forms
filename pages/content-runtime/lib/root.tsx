@@ -5,7 +5,7 @@ import App from '@lib/app';
 import injectedStyle from '@lib/index.css?inline';
 
 const root = document.createElement('div');
-root.id = 'chrome-extension-boilerplate-react-vite-runtime-content-view-root';
+root.id = 'chrome-extension-autofill-forms-runtime-content-view-root';
 
 document.body.append(root);
 
@@ -20,19 +20,4 @@ const globalStyleSheet = new CSSStyleSheet();
 globalStyleSheet.replaceSync(injectedStyle);
 shadowRoot.adoptedStyleSheets = [globalStyleSheet];
 shadowRoot.appendChild(rootIntoShadow);
-/**
- * In the firefox environment, the adoptedStyleSheets bug may prevent style from being applied properly.
- *
- * @url https://bugzilla.mozilla.org/show_bug.cgi?id=1770592
- * @url https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/pull/174
- *
- * Please refer to the links above and try the following code if you encounter the issue.
- *
- * ```ts
- * const styleElement = document.createElement('style');
- * styleElement.innerHTML = injectedStyle;
- * shadowRoot.appendChild(styleElement);
- * ```
- */
-
 createRoot(rootIntoShadow).render(<App />);
