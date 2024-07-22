@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 const Popup = () => {
   // Forms
   const [inputs, setInputs] = useState([]);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     chrome.tabs.query(
@@ -70,7 +70,7 @@ const Popup = () => {
                       className="border px-4 py-2 rounded-md border-gray-200"
                       id={input.name}
                       name={input.name}
-                      value={(formData as any)[input.name as any] || ''}
+                      value={formData[input.name] || ''}
                       onChange={handleChange}>
                       {input.options &&
                         input.options.length > 0 &&
@@ -89,7 +89,7 @@ const Popup = () => {
                       id={input.name}
                       placeholder={input.label || input.name}
                       name={input.name}
-                      value={(formData as any)[input.name as any] || ''}
+                      value={formData[input.name] || ''}
                       onChange={handleChange}
                     />
                   )}
