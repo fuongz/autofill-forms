@@ -27,7 +27,13 @@ const mappingData: { [key: string]: string } = rawMappingData ? JSON.parse(rawMa
 const forms = document.querySelectorAll('form');
 
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
-  let response_data: any = [];
+  let response_data: Array<{
+    name: string | null;
+    label: string | null;
+    type: string | null;
+    options: null | Array<{ label: string; value: string }>;
+    defaultValue: null | string;
+  }> = [];
 
   if (msg._af__from === 'popup' && msg._af__subject === 'contentScript') {
     localStorage.setItem(mappingKey, JSON.stringify({ ...mappingData, ...msg.data }));
@@ -49,11 +55,11 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
               inputType = 'textarea';
             }
 
-            let inputOptions: any = null;
+            let inputOptions: Array<{ label: string; value: string }> | null = null;
             if (input.tagName === 'SELECT') {
               inputOptions = [];
               input.querySelectorAll('option').forEach(option => {
-                inputOptions.push({
+                inputOptions?.push({
                   label: option.innerText,
                   value: option.value,
                 });
@@ -81,7 +87,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   }
 });
 
-function handleAutoFill(data: any) {
+function handleAutoFill(data: { [key: string]: string }) {
   if (forms && forms.length > 0) {
     forms.forEach(form => {
       const inputs = form.querySelectorAll('input');
