@@ -13,11 +13,11 @@ const Popup = () => {
         active: true,
         currentWindow: true,
       },
-      (tabs: any) => {
+      (tabs: Array<chrome.tabs.Tab>) => {
         if (tabs && tabs.length > 0) {
-          chrome.tabs.sendMessage(tabs[0].id, { _af__from: 'popup', _af__subject: 'initForm' }, e => {
+          chrome.tabs.sendMessage(tabs[0].id as number, { _af__from: 'popup', _af__subject: 'initForm' }, e => {
             setInputs(e.data);
-            e.data.forEach((input: any) => {
+            e.data.forEach((input: HTMLInputElement) => {
               if (input && input.defaultValue) {
                 setFormData(prevState => ({
                   ...prevState,
@@ -31,7 +31,7 @@ const Popup = () => {
     );
   }, []);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -53,42 +53,49 @@ const Popup = () => {
       <header className={`App-header relative pb-16 text-base text-gray-900`}>
         <div className="space-y-4 text-left">
           {inputs &&
-            inputs.map((input: any) => (
-              <div key={input.name} className="flex flex-col">
-                <label className="mb-2" htmlFor={input.name}>
-                  {input.label}
-                </label>
+            inputs.map(
+              (input: {
+                options?: Array<{ label: string; value: string }>;
+                name: string;
+                label: string;
+                type: string;
+              }) => (
+                <div key={input.name} className="flex flex-col">
+                  <label className="mb-2" htmlFor={input.name}>
+                    {input.label}
+                  </label>
 
-                {input.type === 'select' && (
-                  <select
-                    className="border px-4 py-2 rounded-md border-gray-200"
-                    id={input.name}
-                    name={input.name}
-                    value={(formData as any)[input.name as any] || ''}
-                    onChange={handleChange}>
-                    {input.options &&
-                      input.options.length > 0 &&
-                      input.options.map((option: any) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                  </select>
-                )}
+                  {input.type === 'select' && (
+                    <select
+                      className="border px-4 py-2 rounded-md border-gray-200"
+                      id={input.name}
+                      name={input.name}
+                      value={(formData as any)[input.name as any] || ''}
+                      onChange={handleChange}>
+                      {input.options &&
+                        input.options.length > 0 &&
+                        input.options.map((option: { label: string; value: string }) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                    </select>
+                  )}
 
-                {input.type !== 'select' && (
-                  <input
-                    className="border px-4 py-2 rounded-md border-gray-200"
-                    type={input.type}
-                    id={input.name}
-                    placeholder={input.label || input.name}
-                    name={input.name}
-                    value={(formData as any)[input.name as any] || ''}
-                    onChange={handleChange}
-                  />
-                )}
-              </div>
-            ))}
+                  {input.type !== 'select' && (
+                    <input
+                      className="border px-4 py-2 rounded-md border-gray-200"
+                      type={input.type}
+                      id={input.name}
+                      placeholder={input.label || input.name}
+                      name={input.name}
+                      value={(formData as any)[input.name as any] || ''}
+                      onChange={handleChange}
+                    />
+                  )}
+                </div>
+              ),
+            )}
         </div>
 
         <div className="fixed bottom-0 flex justify-center w-full bg-white left-0 px-4 py-2 border-t">
