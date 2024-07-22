@@ -1,7 +1,7 @@
 {
   "extensionDescription": {
     "description": "Extension description",
-    "message": "Autofill Forms developed with Vite, React and Typescript"
+    "message": "Just a simple extension to help you auto fill any forms."
   },
   "extensionName": {
     "description": "Extension name",
