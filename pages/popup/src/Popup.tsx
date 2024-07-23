@@ -41,10 +41,6 @@ const Popup = () => {
 
   const handleSubmit = async () => {
     const [tab] = await chrome.tabs.query({ currentWindow: true, active: true });
-    await chrome.scripting.executeScript({
-      target: { tabId: tab.id! },
-      files: ['content-runtime/index.iife.js'],
-    });
     await chrome.tabs.sendMessage(tab.id!, { data: formData, _af__from: 'popup', _af__subject: 'contentScript' });
   };
 
