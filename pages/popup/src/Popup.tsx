@@ -16,15 +16,17 @@ const Popup = () => {
       (tabs: Array<chrome.tabs.Tab>) => {
         if (tabs && tabs.length > 0) {
           chrome.tabs.sendMessage(tabs[0].id as number, { _af__from: 'popup', _af__subject: 'initForm' }, e => {
-            setInputs(e.data);
-            e.data.forEach((input: HTMLInputElement) => {
-              if (input && input.defaultValue) {
-                setFormData(prevState => ({
-                  ...prevState,
-                  [input.name]: input.defaultValue,
-                }));
-              }
-            });
+            if (e) {
+              setInputs(e.data);
+              e.data.forEach((input: HTMLInputElement) => {
+                if (input && input.defaultValue) {
+                  setFormData(prevState => ({
+                    ...prevState,
+                    [input.name]: input.defaultValue,
+                  }));
+                }
+              });
+            }
           });
         }
       },
