@@ -91,8 +91,8 @@ function handleAutoFill(data: { [key: string]: string }) {
   if (forms && forms.length > 0) {
     forms.forEach(form => {
       const inputs = form.querySelectorAll('input,select,textarea');
-      inputs.forEach(input => {
-        if (input && input.name && typeof data[input.name] !== 'undefined') {
+      inputs.forEach((input: Element) => {
+        if (input instanceof HTMLInputElement && input.name && typeof data[input.name] !== 'undefined') {
           input.value = data[input.name];
         }
       });
