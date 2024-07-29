@@ -21,7 +21,7 @@
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
     "@extension/content-runtime-script": "workspace:*",
-    "@types/node": "^20.14.11"
+    "@types/node": "^22.0.0"
   },
   "devDependencies": {
     "@extension/tailwindcss-config": "workspace:*",
