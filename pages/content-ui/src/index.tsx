@@ -27,7 +27,7 @@ const mappingData: { [key: string]: string } = rawMappingData ? JSON.parse(rawMa
 const forms = document.querySelectorAll('form');
 
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
-  let response_data: Array<{
+  const response_data: Array<{
     name: string | null;
     label: string | null;
     type: string | null;

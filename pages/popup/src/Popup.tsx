@@ -46,6 +46,8 @@ const Popup = () => {
     await chrome.tabs.sendMessage(tab.id!, { data: formData, _af__from: 'popup', _af__subject: 'contentScript' });
   };
 
+  const seed = () => (Math.random() + 1).toString(36).substring(7);
+
   return (
     <div className={`App p-4 bg-white`}>
       <header className={`App-header relative pb-16 text-base text-gray-900`}>
@@ -58,7 +60,7 @@ const Popup = () => {
                 label: string;
                 type: string;
               }) => (
-                <div key={input.name} className="flex flex-col">
+                <div key={`${input.name}-${seed()}`} className="flex flex-col">
                   <label className="mb-2" htmlFor={input.name}>
                     {input.label}
                   </label>
