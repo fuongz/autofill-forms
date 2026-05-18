@@ -17,6 +17,7 @@
     "build:popup:assets": "mkdir -p extension/dist/popup && cp src/popup/index.html extension/dist/popup/index.html && cp src/popup/style.css extension/dist/popup/style.css",
     "build:popup": "bun run build:popup:js && bun run build:popup:assets",
     "build": "bun run clean && bun run build:background && bun run build:content && bun run build:popup",
+    "zip": "bun run build && VERSION=$(node -p \"require('./package.json').version\") && mkdir -p releases && rm -f releases/autofill-forms-$VERSION.zip && cd extension && zip -r ../releases/autofill-forms-$VERSION.zip . -x '*.DS_Store'",
     "dev:background": "bun build src/background/index.ts --outfile=extension/dist/background.js --target=browser --format=esm --watch",
     "dev:content": "bun build src/content/index.ts --outfile=extension/dist/content.js --target=browser --format=iife --watch",
     "dev:popup": "bun build src/popup/index.ts --outfile=extension/dist/popup/popup.js --target=browser --format=esm --watch",
