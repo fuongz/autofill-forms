@@ -1,70 +1,34 @@
 {
   "name": "autofill-forms",
-  "version": "1.0.3",
-  "description": "Autofill Forms",
+  "version": "2.0.0",
+  "description": "Autofill Forms browser extension",
+  "private": true,
+  "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/fuongz/autofill-forms.git"
   },
   "scripts": {
-    "clean": "rimraf dist && rimraf .turbo && turbo clean",
-    "clean:node_modules": "rimraf **/node_modules && rimraf ./node_modules",
-    "clean:install": "pnpm clean:node_modules && pnpm install --frozen-lockfile",
-    "build": "turbo build",
-    "build:firefox": "cross-env __FIREFOX__=true turbo build",
-    "zip": "turbo zip",
-    "dev-server": "pnpm -F hmr ready && pnpm -F hmr dev",
-    "dev": "turbo ready && turbo watch dev --concurrency 20",
-    "dev:firefox": "turbo ready && cross-env __FIREFOX__=true turbo watch dev --concurrency 20",
-    "test": "turbo test",
-    "type-check": "turbo type-check",
-    "lint": "turbo lint --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache",
-    "lint:fix": "turbo lint:fix --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache",
-    "prettier": "turbo prettier --continue -- --cache --cache-location node_modules/.cache/.prettiercache",
-    "prepare": "husky",
-    "update-version": "./update_version.sh"
-  },
-  "type": "module",
-  "dependencies": {
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "clean": "rm -rf extension/dist",
+    "build:background": "bun build src/background/index.ts --outfile=extension/dist/background.js --target=browser --format=esm",
+    "build:content": "bun build src/content/index.ts --outfile=extension/dist/content.js --target=browser --format=iife",
+    "build:popup:js": "bun build src/popup/index.ts --outfile=extension/dist/popup/popup.js --target=browser --format=esm",
+    "build:popup:assets": "mkdir -p extension/dist/popup && cp src/popup/index.html extension/dist/popup/index.html && cp src/popup/style.css extension/dist/popup/style.css",
+    "build:popup": "bun run build:popup:js && bun run build:popup:assets",
+    "build": "bun run clean && bun run build:background && bun run build:content && bun run build:popup",
+    "dev:background": "bun build src/background/index.ts --outfile=extension/dist/background.js --target=browser --format=esm --watch",
+    "dev:content": "bun build src/content/index.ts --outfile=extension/dist/content.js --target=browser --format=iife --watch",
+    "dev:popup": "bun build src/popup/index.ts --outfile=extension/dist/popup/popup.js --target=browser --format=esm --watch",
+    "dev": "bun run build:popup:assets && (bun run dev:background & bun run dev:content & bun run dev:popup && wait)",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.268",
-    "@types/node": "^20.14.11",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.17.0",
-    "@typescript-eslint/parser": "^7.16.1",
-    "autoprefixer": "^10.4.19",
-    "cross-env": "^7.0.3",
-    "esbuild": "^0.23.0",
-    "eslint": "8.57.0",
-    "eslint-config-airbnb-typescript": "18.0.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-jsx-a11y": "6.9.0",
-    "eslint-plugin-prettier": "5.2.1",
-    "eslint-plugin-react": "7.35.0",
-    "eslint-plugin-react-hooks": "4.6.2",
-    "husky": "^9.1.1",
-    "lint-staged": "^15.2.7",
-    "postcss": "^8.4.39",
-    "prettier": "^3.3.3",
-    "rimraf": "^6.0.1",
-    "tailwindcss": "^3.4.6",
-    "tslib": "^2.6.3",
-    "turbo": "^2.0.9",
-    "typescript": "5.5.3",
-    "vite": "5.3.4"
+    "@types/bun": "latest",
+    "@types/chrome": "^0.0.290",
+    "typescript": "^5.9.3"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write"
-    ]
-  },
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "bun@1.3.11",
   "engines": {
     "node": ">=18.12.0"
   }

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autofill Forms</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="hero">
+        <p class="eyebrow">Autofill Forms</p>
+        <h1>Fill forms from one panel</h1>
+        <p class="subtitle">Inspect the active page, edit detected fields, then push values back into the form.</p>
+      </header>
+
+      <section id="status" class="status">Scanning current tab...</section>
+      <form id="fields-form" class="fields"></form>
+
+      <footer class="actions">
+        <button id="apply-button" type="button" class="primary" disabled>Apply values</button>
+      </footer>
+    </main>
+
+    <script type="module" src="./popup.js"></script>
+  </body>
+</html>

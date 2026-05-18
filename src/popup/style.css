@@ -1,0 +1,184 @@
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../assets/fonts/IBMPlexSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../../assets/fonts/IBMPlexSans-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../assets/fonts/IBMPlexSans-Bold.woff2') format('woff2');
+}
+
+:root {
+  color-scheme: light;
+  font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(43, 108, 176, 0.15), transparent 32%),
+    linear-gradient(180deg, #f7fbff 0%, #eef4f8 100%);
+  color: #102332;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 360px;
+  height: 560px;
+  margin: 0;
+  font-family: inherit;
+  overflow: hidden;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+}
+
+.hero {
+  margin-bottom: 14px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #35607f;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #486174;
+}
+
+.status {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border: 1px solid #cbd7e1;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+}
+
+.fields {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px 12px;
+  border: 1px solid rgba(191, 208, 220, 0.72);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.44);
+}
+
+.field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #294559;
+}
+
+.field-placeholder {
+  margin-top: -2px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #6c8293;
+  word-break: break-word;
+}
+
+.field-hidden {
+  border-color: rgba(190, 148, 32, 0.65);
+  background: rgba(255, 248, 221, 0.8);
+}
+
+.field-badge {
+  align-self: flex-start;
+  margin-top: -2px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #7a5a00;
+  background: rgba(245, 211, 94, 0.32);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #bfd0dc;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.88);
+  font: inherit;
+  color: inherit;
+}
+
+.field textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.empty {
+  padding: 20px 16px;
+  border: 1px dashed #bfd0dc;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.58);
+  font-size: 13px;
+  line-height: 1.5;
+  color: #486174;
+}
+
+.actions {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(191, 208, 220, 0.9);
+  background: linear-gradient(180deg, rgba(238, 244, 248, 0) 0%, rgba(238, 244, 248, 0.95) 36%);
+}
+
+.primary {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #0f6cbd, #0b4a7a);
+  cursor: pointer;
+}
+
+.primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

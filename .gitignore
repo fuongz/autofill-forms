@@ -1,23 +1,12 @@
-# dependencies
-**/node_modules
-
-# testing
-**/coverage
-
-# build
-**/dist
-**/build
-**/dist-zip
-
-# env
-**/.env.local
-**/.env
-
-# etc
+node_modules
 .DS_Store
 .idea
-**/.turbo
+.turbo
 
-# compiled
-chrome-extension/public/manifest.json
-**/tailwind-output.css
+dist
+build
+coverage
+extension/dist
+
+.env
+.env.local
